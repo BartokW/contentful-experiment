@@ -6,12 +6,11 @@ import { createClient, Entry } from 'contentful';
 // configure the service with tokens and content type ids
 // SET YOU OWN CONFIG here
 const CONFIG = {
-  space: 'wl1z0pal05vy',
-  accessToken:
-    '0e3ec801b5af550c8a1257e8623b1c77ac9b3d8fcfc1b2b7494e3cb77878f92a',
+  space: 'hj4b9t39v9vm',
+  accessToken: 'GJ-aJFpiysmIrJ_usWlWSMh4aMUlGP1tLiRbXG2rMgk',
 
   contentTypeIds: {
-    product: '2PqfXUJwE8qSYKuM0U6w8M',
+    blogEntry: 'blogPost',
   },
 };
 
@@ -24,16 +23,20 @@ export class ContentfulService {
 
   constructor() {}
 
-  getProducts(query?: object): Promise<Entry<any>[]> {
+  getBlogEntries(query?: object): Promise<Entry<any>[]> {
     return this.cdaClient
       .getEntries(
         Object.assign(
           {
-            content_type: CONFIG.contentTypeIds.product,
+            content_type: CONFIG.contentTypeIds.blogEntry,
           },
           query
         )
       )
       .then((res) => res.items);
+  }
+
+  getOne() {
+    //this.cdaClient.getEntry('5AIc9NRxmMRaznDPbpsSgi')
   }
 }

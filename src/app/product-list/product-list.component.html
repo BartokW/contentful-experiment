@@ -1,3 +1,20 @@
-<ul class="u-listReset">
-  <li *ngFor="let product of products">{{ product.fields.productName }}</li>
-</ul>
+<!-- <ul class="u-listReset">
+  <li *ngFor="let entry of blogEntries">{{ entry.fields.title }}</li>
+</ul> -->
+
+<div *ngFor="let entry of blogEntries">
+  <h1>{{ entry.fields.title }}</h1>
+  <h4>{{ entry.fields.publishDate }}</h4>
+
+  <div>{{ entry.fields.overview }}</div>
+
+  <pre>
+    {{ entry.fields.entryContext | json }}
+  </pre>
+</div>
+
+<hr />
+<h1>All Data</h1>
+<pre>
+  {{ blogEntries | json }}
+</pre>

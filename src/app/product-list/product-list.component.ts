@@ -8,13 +8,13 @@ import { ContentfulService } from '../contentful.service';
   styleUrls: ['./product-list.component.scss'],
 })
 export class ProductListComponent implements OnInit {
-  products: Entry<any>[] = [];
+  blogEntries: Entry<any>[] = [];
 
   constructor(private contentfulService: ContentfulService) {}
 
   ngOnInit(): void {
     this.contentfulService
-      .getProducts()
-      .then((products) => (this.products = products));
+      .getBlogEntries()
+      .then((products) => (this.blogEntries = products));
   }
 }
