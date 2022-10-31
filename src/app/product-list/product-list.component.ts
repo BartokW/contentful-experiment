@@ -1,6 +1,23 @@
 import { Component, OnInit } from '@angular/core';
 import { Entry } from 'contentful';
+import { BLOCKS, Document, INLINES } from '@contentful/rich-text-types';
 import { ContentfulService } from '../contentful.service';
+import { NodeRenderer, NodeRendererResolver } from 'ngx-contentful-rich-text';
+
+@Component({
+  template: `<img [src]="fields.file.url" [alt]="fields.title" />`,
+})
+export class CustomEmbeddedEntryComponent
+  extends NodeRenderer
+  implements OnInit
+{
+  fields: any;
+
+  ngOnInit() {
+    const x = this.node.data as any;
+    this.fields = x.target.fields;
+  }
+}
 
 @Component({
   selector: 'app-product-list',
@@ -9,6 +26,11 @@ import { ContentfulService } from '../contentful.service';
 })
 export class ProductListComponent implements OnInit {
   blogEntries: Entry<any>[] = [];
+  // Instructions for the renderer component, and setting up the custom renderers
+  // https://github.com/kgajera/ngx-contentful-rich-text
+  nodeRenderers: Record<string, NodeRendererResolver> = {
+    [BLOCKS.EMBEDDED_ASSET]: (node) => CustomEmbeddedEntryComponent,
+  };
 
   constructor(private contentfulService: ContentfulService) {}
 

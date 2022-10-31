@@ -7,14 +7,18 @@
   <h4>{{ entry.fields.publishDate }}</h4>
 
   <div>{{ entry.fields.overview }}</div>
+  <div>
+    <ngx-contentful-rich-text
+      [document]="entry.fields.entryContext"
+      [nodeRenderers]="nodeRenderers"
+    ></ngx-contentful-rich-text>
+  </div>
 
-  <pre>
-    {{ entry.fields.entryContext | json }}
-  </pre>
+  <!-- <pre>{{ entry.fields.entryContext | json }}</pre> -->
 </div>
 
-<hr />
+<!-- <hr />
 <h1>All Data</h1>
 <pre>
   {{ blogEntries | json }}
-</pre>
+</pre> -->
