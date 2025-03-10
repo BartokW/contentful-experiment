@@ -22,3 +22,15 @@
 <pre>
   {{ blogEntries | json }}
 </pre> -->
+
+<div *ngFor="let entry of memberPages">
+  <h1>{{ entry.fields.pageTitle }}</h1>
+  <div>
+    <ngx-contentful-rich-text
+      [document]="entry.fields.pageContent"
+      [nodeRenderers]="nodeRenderers"
+    ></ngx-contentful-rich-text>
+  </div>
+
+  <pre>{{ entry | json }}</pre>
+</div>

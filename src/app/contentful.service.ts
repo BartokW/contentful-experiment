@@ -11,6 +11,8 @@ const CONFIG = {
 
   contentTypeIds: {
     blogEntry: 'blogPost',
+    memberPage: 'memberArea',
+    page: 'page',
   },
 };
 
@@ -19,6 +21,7 @@ export class ContentfulService {
   private cdaClient = createClient({
     space: CONFIG.space,
     accessToken: CONFIG.accessToken,
+    environment: 'master',
   });
 
   constructor() {}
@@ -38,5 +41,32 @@ export class ContentfulService {
 
   getOne() {
     //this.cdaClient.getEntry('5AIc9NRxmMRaznDPbpsSgi')
+  }
+
+  getMemberPageEntries(query?: object): Promise<Entry<any>[]> {
+    return this.cdaClient
+      .getEntries(
+        Object.assign(
+          {
+            content_type: CONFIG.contentTypeIds.memberPage,
+          },
+          query
+        )
+      )
+      .then((res) => res.items);
+  }
+
+  getMemberPageMenus(query?: object): Promise<Entry<any>[]> {
+    return this.cdaClient
+      .getEntries(
+        Object.assign(
+          {
+            content_type: CONFIG.contentTypeIds.memberPage,
+            'metadata.tags.sys.id[all]': 'menu',
+          },
+          query
+        )
+      )
+      .then((res) => res.items);
   }
 }

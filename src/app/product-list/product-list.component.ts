@@ -26,6 +26,8 @@ export class CustomEmbeddedEntryComponent
 })
 export class ProductListComponent implements OnInit {
   blogEntries: Entry<any>[] = [];
+  memberPages: Entry<any>[] = [];
+
   // Instructions for the renderer component, and setting up the custom renderers
   // https://github.com/kgajera/ngx-contentful-rich-text
   nodeRenderers: Record<string, NodeRendererResolver> = {
@@ -38,5 +40,8 @@ export class ProductListComponent implements OnInit {
     this.contentfulService
       .getBlogEntries()
       .then((products) => (this.blogEntries = products));
+    this.contentfulService.getMemberPageEntries().then((pages) => {
+      this.memberPages = pages;
+    });
   }
 }
