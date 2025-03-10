@@ -5,7 +5,8 @@ import { ContentfulService } from '../contentful.service';
 import { NodeRenderer, NodeRendererResolver } from 'ngx-contentful-rich-text';
 
 @Component({
-  template: `<img [src]="fields.file.url" [alt]="fields.title" />`,
+    template: `<img [src]="fields.file.url" [alt]="fields.title" />`,
+    standalone: false
 })
 export class CustomEmbeddedEntryComponent
   extends NodeRenderer
@@ -20,9 +21,10 @@ export class CustomEmbeddedEntryComponent
 }
 
 @Component({
-  selector: 'app-product-list',
-  templateUrl: './product-list.component.html',
-  styleUrls: ['./product-list.component.scss'],
+    selector: 'app-product-list',
+    templateUrl: './product-list.component.html',
+    styleUrls: ['./product-list.component.scss'],
+    standalone: false
 })
 export class ProductListComponent implements OnInit {
   blogEntries: Entry<any>[] = [];
