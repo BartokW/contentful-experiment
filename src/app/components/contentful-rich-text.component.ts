@@ -19,7 +19,6 @@ export class ContentfulRichText {
   options: Partial<Options> = {
     renderNode: {
       [BLOCKS.EMBEDDED_ASSET]: (node) => {
-        console.log(node);
         const { title, file } = node.data['target'].fields;
         const mimeType = file.contentType;
         const mimeGroup = mimeType.split('/')[0];
