@@ -12,14 +12,19 @@ export class ProductListComponent implements OnInit {
   blogEntries: Entry<any>[] = [];
   memberPages: Entry<any>[] = [];
 
+  singleEntry: Entry<any> | null = null;
+
   constructor(private contentfulService: ContentfulService) {}
 
   ngOnInit(): void {
-    this.contentfulService
-      .getBlogEntries()
-      .then((products) => (this.blogEntries = products));
-    this.contentfulService.getMemberPageEntries().then((pages) => {
-      this.memberPages = pages;
+    this.contentfulService.getOne('6HlOhoEukyA1FcXnlLzzD3').then((entry) => {
+      this.singleEntry = entry;
     });
+    // this.contentfulService
+    //   .getBlogEntries()
+    //   .then((products) => (this.blogEntries = products));
+    // this.contentfulService.getMemberPageEntries().then((pages) => {
+    //   this.memberPages = pages;
+    // });
   }
 }

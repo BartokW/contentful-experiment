@@ -39,8 +39,8 @@ export class ContentfulService {
       .then((res) => res.items);
   }
 
-  getOne() {
-    //this.cdaClient.getEntry('5AIc9NRxmMRaznDPbpsSgi')
+  getOne(id: string) {
+    return this.cdaClient.getEntry(id);
   }
 
   getMemberPageEntries(query?: object): Promise<Entry<any>[]> {
