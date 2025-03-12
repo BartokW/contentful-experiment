@@ -8,11 +8,12 @@ import { BLOCKS, Document, INLINES } from '@contentful/rich-text-types';
 
 @Component({
   selector: 'app-contentful-rich-text',
+  //template: `<div></div>`,
   template: `<div [innerHTML]="toHtml(document)"></div>`,
   standalone: false,
 })
 export class ContentfulRichText {
-  @Input() document: Document | null = null;
+  @Input() document: Partial<Document> | undefined;
   jsonPipe: JsonPipe = new JsonPipe();
 
   // Instructions for adjusting the renderNodes here
@@ -54,10 +55,11 @@ export class ContentfulRichText {
     },
   };
 
-  toHtml(document: Document | null): string {
-    if (document === null) {
+  toHtml(document: Partial<Document> | undefined): string {
+    if (document === undefined) {
       return '';
     }
-    return documentToHtmlString(document, this.options);
+
+    return documentToHtmlString(document as Document, this.options);
   }
 }

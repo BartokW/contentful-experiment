@@ -1,7 +1,12 @@
 // ./src/app/contentful.service.ts
 import { Injectable } from '@angular/core';
 // import Contentful createClient and type for `Entry`
-import { createClient, Entry } from 'contentful';
+import {
+  createClient,
+  EntriesQueries,
+  Entry,
+  EntryFieldTypes,
+} from 'contentful';
 
 // configure the service with tokens and content type ids
 // SET YOU OWN CONFIG here
@@ -16,6 +21,24 @@ const CONFIG = {
   },
 };
 
+export interface BlogEntrySkeleton {
+  contentTypeId: 'blogPost';
+  fields: {
+    title: EntryFieldTypes.Text;
+    publishDate: EntryFieldTypes.Date;
+    overview: EntryFieldTypes.Text;
+    entryContext: EntryFieldTypes.RichText;
+  };
+}
+
+export interface MemberPageSkeleton {
+  contentTypeId: 'memberArea';
+  fields: {
+    pageTitle: EntryFieldTypes.Text;
+    pageContent: EntryFieldTypes.RichText;
+  };
+}
+
 @Injectable()
 export class ContentfulService {
   private cdaClient = createClient({
@@ -26,43 +49,30 @@ export class ContentfulService {
 
   constructor() {}
 
-  getBlogEntries(query?: object): Promise<Entry<any>[]> {
-    return this.cdaClient
-      .getEntries(
-        Object.assign(
-          {
-            content_type: CONFIG.contentTypeIds.blogEntry,
-          },
-          query
-        )
-      )
+  getBlogEntries(query?: object): Promise<Entry<BlogEntrySkeleton>[]> {
+    let x = this.cdaClient
+      .getEntries<BlogEntrySkeleton>(query)
       .then((res) => res.items);
+
+    return x;
   }
 
   getOne(id: string) {
-    return this.cdaClient.getEntry(id);
+    return this.cdaClient.getEntry<BlogEntrySkeleton>(id);
   }
 
-  getMemberPageEntries(query?: object): Promise<Entry<any>[]> {
+  getMemberPageEntries(query?: object): Promise<Entry<MemberPageSkeleton>[]> {
     return this.cdaClient
-      .getEntries(
-        Object.assign(
-          {
-            content_type: CONFIG.contentTypeIds.memberPage,
-          },
-          query
-        )
-      )
+      .getEntries<MemberPageSkeleton>(query)
       .then((res) => res.items);
   }
 
-  getMemberPageMenus(query?: object): Promise<Entry<any>[]> {
+  getMemberPageMenus(query?: object): Promise<Entry<MemberPageSkeleton>[]> {
     return this.cdaClient
-      .getEntries(
+      .getEntries<MemberPageSkeleton>(
         Object.assign(
           {
-            content_type: CONFIG.contentTypeIds.memberPage,
-            'metadata.tags.sys.id[all]': 'menu',
+            'metadata.tags.sys.id[all]': ['menu'],
           },
           query
         )

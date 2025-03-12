@@ -12,7 +12,7 @@
       [document]="singleEntry.fields.entryContext"
     ></app-contentful-rich-text>
   </div>
-  <!-- <pre>{{ singleEntry | json }}</pre> -->
+  <pre>{{ singleEntry.fields.entryContext | json }}</pre>
 </div>
 
 @if (blogEntriesResource.asReadonly().isLoading()) {
@@ -36,7 +36,7 @@
   <h1>{{ entry.fields.pageTitle }}</h1>
   <div>
     <app-contentful-rich-text
-      [document]="entry.fields.pageContent"
+      [document]="entry.fields['pageContent']"
     ></app-contentful-rich-text>
   </div>
 

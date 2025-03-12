@@ -1,6 +1,10 @@
 import { Component, OnInit, resource } from '@angular/core';
 import { Entry } from 'contentful';
-import { ContentfulService } from '../contentful.service';
+import {
+  BlogEntrySkeleton,
+  ContentfulService,
+  MemberPageSkeleton,
+} from '../contentful.service';
 
 @Component({
   selector: 'app-product-list',
@@ -9,13 +13,13 @@ import { ContentfulService } from '../contentful.service';
   standalone: false,
 })
 export class ProductListComponent implements OnInit {
-  blogEntries: Entry<any>[] = [];
-  memberPages: Entry<any>[] = [];
+  blogEntries: Entry<BlogEntrySkeleton>[] = [];
+  memberPages: Entry<MemberPageSkeleton>[] = [];
 
-  singleEntry: Entry<any> | null = null;
+  singleEntry: Entry<BlogEntrySkeleton> | null = null;
 
   blogEntriesResource = resource({
-    defaultValue: [] as Entry<any>[],
+    defaultValue: [] as Entry<BlogEntrySkeleton>[],
     loader: () => this.contentfulService.getBlogEntries(),
     //request: () => this.contentfulService.getBlogEntries(),
   });
@@ -30,8 +34,8 @@ export class ProductListComponent implements OnInit {
     // this.contentfulService
     //   .getBlogEntries()
     //   .then((products) => (this.blogEntries = products));
-    // this.contentfulService.getMemberPageEntries().then((pages) => {
-    //   this.memberPages = pages;
-    // });
+    this.contentfulService.getMemberPageEntries().then((pages) => {
+      this.memberPages = pages;
+    });
   }
 }
