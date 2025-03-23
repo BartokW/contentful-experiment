@@ -30,7 +30,7 @@ export class ContentfulRichText {
       [BLOCKS.EMBEDDED_ENTRY]: (node) => {
         return (
           'Block Embedded Entry <pre>' +
-          this.jsonPipe.transform(node.data['target']) +
+          //       this.jsonPipe.transform(node.data['target']) +
           '</pre>'
         );
       },
@@ -41,14 +41,14 @@ export class ContentfulRichText {
       [INLINES.ENTRY_HYPERLINK]: (node) => {
         return (
           'Entry Hyperlink <pre>' +
-          this.jsonPipe.transform(node.data['target']) +
+          //     this.jsonPipe.transform(node.data['target']) +
           '</pre>'
         );
       },
       [INLINES.EMBEDDED_ENTRY]: (node) => {
         return (
           'Inline Embedded Entry <pre>' +
-          this.jsonPipe.transform(node.data['target']) +
+          //   this.jsonPipe.transform(node.data['target']) +
           '</pre>'
         );
       },

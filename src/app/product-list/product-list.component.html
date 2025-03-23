@@ -2,7 +2,7 @@
   {{ blogEntries | json }}
 </pre> -->
 
-<div *ngIf="singleEntry">
+<!-- <div *ngIf="singleEntry">
   <h1>{{ singleEntry.fields.title }}</h1>
   <h4>{{ singleEntry.fields.publishDate }}</h4>
 
@@ -12,8 +12,8 @@
       [document]="singleEntry.fields.entryContext"
     ></app-contentful-rich-text>
   </div>
-  <pre>{{ singleEntry.fields.entryContext | json }}</pre>
-</div>
+   <pre>{{ singleEntry.fields.entryContext | json }}</pre>
+</div> -->
 
 @if (blogEntriesResource.asReadonly().isLoading()) {
 <div>Loading...</div>
@@ -33,12 +33,12 @@
 }
 
 <div *ngFor="let entry of memberPages">
-  <h1>{{ entry.fields.pageTitle }}</h1>
+  <!-- <h1>{{ entry.fields.pageTitle }}</h1>
   <div>
     <app-contentful-rich-text
       [document]="entry.fields['pageContent']"
     ></app-contentful-rich-text>
-  </div>
+  </div> -->
 
   <!-- <pre>{{ entry | json }}</pre> -->
 </div>

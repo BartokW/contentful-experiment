@@ -50,8 +50,19 @@ export class ContentfulService {
   constructor() {}
 
   getBlogEntries(query?: object): Promise<Entry<BlogEntrySkeleton>[]> {
+    // let path: OrderFilterPaths<EntrySys, 'sys'> = 'fields.blogPost.fields.publishDate';
+
+    let q: EntriesQueries<BlogEntrySkeleton, undefined> | undefined = {
+      content_type: 'blogPost',
+      order: ['-fields.publishDate'],
+      limit: 10,
+      skip: 0,
+    };
+
+    q = Object.assign(q as object, query);
+
     let x = this.cdaClient
-      .getEntries<BlogEntrySkeleton>(query)
+      .getEntries<BlogEntrySkeleton>(q)
       .then((res) => res.items);
 
     return x;
