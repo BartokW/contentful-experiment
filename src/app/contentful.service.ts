@@ -51,18 +51,26 @@ export class ContentfulService {
 
   getBlogEntries(query?: object): Promise<Entry<BlogEntrySkeleton>[]> {
     // let path: OrderFilterPaths<EntrySys, 'sys'> = 'fields.blogPost.fields.publishDate';
+    let currentDate = new Date();
 
-    let q: EntriesQueries<BlogEntrySkeleton, undefined> | undefined = {
+    let baseQuery = {
+      'fields.publishDate[lt]': [currentDate.toISOString()],
+    };
+
+    let extendedBaseQuery:
+      | EntriesQueries<BlogEntrySkeleton, undefined>
+      | undefined = {
       content_type: 'blogPost',
       order: ['-fields.publishDate'],
       limit: 10,
       skip: 0,
     };
 
-    q = Object.assign(q as object, query);
+    let finalBaseQuery = Object.assign(baseQuery as object, extendedBaseQuery);
+    finalBaseQuery = Object.assign(finalBaseQuery as object, query);
 
     let x = this.cdaClient
-      .getEntries<BlogEntrySkeleton>(q)
+      .getEntries<BlogEntrySkeleton>(finalBaseQuery)
       .then((res) => res.items);
 
     return x;
